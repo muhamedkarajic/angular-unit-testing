@@ -1,6 +1,6 @@
-import { of } from "rxjs";
-import { Hero } from "../hero";
 import { HeroesComponent } from "./heroes.component";
+import { Hero } from "../hero";
+import { of } from "rxjs";
 
 describe('HeroesComponent', () => {
   let component: HeroesComponent;
@@ -27,6 +27,15 @@ describe('HeroesComponent', () => {
       component.delete(HEROES[2]);
 
       expect(component.heroes.length).toBe(2);
+    });
+
+    it('should call delete hero', () => {
+      mockHeroService.deleteHero.and.returnValue(of(true));
+      component.heroes = HEROES;
+
+      component.delete(HEROES[2]);
+
+      expect(mockHeroService.deleteHero).toHaveBeenCalledWith(HEROES[2]);
     });
   });
 });
